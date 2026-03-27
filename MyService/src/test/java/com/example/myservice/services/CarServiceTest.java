@@ -71,4 +71,19 @@ public class CarServiceTest {
     public void testDeleteCarNotFound() {
         assertFalse(carService.deleteCar("NOTFOUND"));
     }
+
+    @Test
+    public void testUpdateCarPrice() {
+        Car car = new Car("ABC123", "Toyota", 15000.0);
+        carService.addCar(car);
+        Car updated = carService.updateCarPrice("ABC123", 12000.0);
+        assertNotNull(updated);
+        assertEquals(12000.0, updated.getPrice());
+    }
+
+    @Test
+    public void testUpdateCarPriceNotFound() {
+        Car result = carService.updateCarPrice("NOTFOUND", 10000.0);
+        assertNull(result);
+    }
 }

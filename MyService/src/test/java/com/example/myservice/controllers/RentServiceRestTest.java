@@ -76,4 +76,17 @@ public class RentServiceRestTest {
         mockMvc.perform(delete("/cars/DEL001"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testUpdateCarPrice() throws Exception {
+        Car car = new Car("UPD001", "Renault", 20000.0);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/cars")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(car)));
+
+        mockMvc.perform(put("/cars/UPD001/15000.0"))
+                .andExpect(status().isOk());
+    }
 }
