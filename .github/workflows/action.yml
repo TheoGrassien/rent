@@ -11,7 +11,7 @@ permissions:
   security-events: write
   actions: read
   checks: write
-  pull-requests: read
+  pull-requests: write
 
 jobs:
   build-and-test:
