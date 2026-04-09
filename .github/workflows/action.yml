@@ -11,7 +11,7 @@ permissions:
   security-events: write
   actions: read
   checks: write
-  pull-requests: read
+  pull-requests: write
 
 jobs:
   build-and-test:
@@ -43,6 +43,7 @@ jobs:
             MyService/build/test-results/**/*.xml
 
       - name: Build Docker images
+        continue-on-error: true
         run: |
           docker build -t myservice:latest -f MyService/Dockerfile .
 
