@@ -34,11 +34,21 @@ jacoco {
 	toolVersion = "0.8.10"
 }
 
+def coverageExclusions = [
+	'**/entities/**',
+	'**/dto/**',
+	'**/config/**',
+	'**/MyServiceApplication.*'
+]
+
 tasks.named('jacocoTestReport') {
 	reports {
 		xml.required = true
 		html.required = true
 	}
+	classDirectories.setFrom(files(classDirectories.files.collect {
+		fileTree(dir: it, exclude: coverageExclusions)
+	}))
 }
 
 sonar {
@@ -49,5 +59,6 @@ sonar {
     property "sonar.sources", "src/main/java"
     property "sonar.tests", "src/test/java"
     property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
+    property "sonar.coverage.exclusions", coverageExclusions.join(",")
   }
 }
