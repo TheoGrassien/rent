@@ -1,8 +1,9 @@
 # Stage 1: Build
 FROM gradle:8.5-jdk21 AS build
 WORKDIR /app
-COPY MyService/build.gradle MyService/settings.gradle ./
-COPY MyService/src ./src
+COPY build.gradle settings.gradle gradlew gradlew.bat ./
+COPY gradle ./gradle
+COPY src ./src
 RUN gradle build --no-daemon -x test
 
 # Stage 2: Run
