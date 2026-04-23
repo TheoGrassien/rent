@@ -23,4 +23,16 @@ public class CarService {
     public List<Car> getCars() {
         return new ArrayList<>(cars);
     }
+
+    public boolean deleteCar(String plateNumber) {
+        return cars.removeIf(car -> car.getPlateNumber().equals(plateNumber));
+    }
+
+    public Car updateCarPrice(String plateNumber, double newPrice) {
+        Car car = getCar(plateNumber);
+        if (car != null) {
+            car.setPrice(newPrice);
+        }
+        return car;
+    }
 }

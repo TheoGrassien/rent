@@ -54,13 +54,39 @@ public class RentServiceRestTest {
     public void testGetCarByPlateNumber() throws Exception {
         Car car = new Car("ABC123", "Toyota", 15000.0);
         ObjectMapper objectMapper = new ObjectMapper();
-        
+
         // Ajouter une voiture d'abord
         mockMvc.perform(post("/cars")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(car)));
-        
+
         mockMvc.perform(get("/cars/ABC123"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteCar() throws Exception {
+        Car car = new Car("DEL001", "Peugeot", 12000.0);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/cars")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(car)));
+
+        mockMvc.perform(delete("/cars/DEL001"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUpdateCarPrice() throws Exception {
+        Car car = new Car("UPD001", "Renault", 20000.0);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        mockMvc.perform(post("/cars")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(car)));
+
+        mockMvc.perform(put("/cars/UPD001/15000.0"))
                 .andExpect(status().isOk());
     }
 }

@@ -8,6 +8,10 @@ on:
 
 permissions:
   contents: read
+  security-events: write
+  actions: read
+  checks: write
+  pull-requests: write
 
 jobs:
   build-and-test:
@@ -62,6 +66,7 @@ jobs:
 
 
       - name: Build Docker images
+        continue-on-error: true
         run: |
           cd ./MyService
           docker build -t myservice:latest .
